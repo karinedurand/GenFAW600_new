@@ -11,6 +11,7 @@ conda activate bcftools
 # 1. Filter whole-genome VCF
 #    - Keep only biallelic variants
 #    - Keep variants with at least 20% present genotypes (F_MISSING < 0.8)
+#    --keep variants with a maximum of 80% missing data (F_MISSING < 0.8)
 #############################################
 
 bcftools view     -m2 -M2 -i 'F_MISSING < 0.8' GenFAW.snps.renamed_chr1-29.vcf.gz \
