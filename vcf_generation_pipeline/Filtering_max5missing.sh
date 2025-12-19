@@ -34,8 +34,8 @@ conda activate bcftools
 #    --keep variants with a maximum of 5% missing data (F_MISSING < 0.05)
 #############################################
 
-bcftools view     -m2 -M2 -i 'F_MISSING < 0.05' GenFAW.snps.renamed_chr1-29.vcf.gz \
- -Oz  -o Whole_genome_biallelic_max_5_missing.vcf.gz \
+bcftools view   -i 'F_MISSING < 0.05'  WholeGenome_biallelic_max80missing_pruned.fixed.vcf.gz \
+ -Oz  -o Whole_genome_biallelic_max_5_missing.pruned.vcf.gz \
  --threads 8                     
 
 
@@ -44,8 +44,8 @@ bcftools view     -m2 -M2 -i 'F_MISSING < 0.05' GenFAW.snps.renamed_chr1-29.vcf.
 #############################################
 
 bcftools view \
-    -r 1-28 Whole_genome_biallelic_max_5_missing.vcf.gz  \
-    -Oz -o Autosome_biallelic_max_5_missing.vcf.gz \
+    -r 1-28  WholeGenome_biallelic_max80missing_pruned.fixed.vcf.gz \
+    -Oz -o Autosome_biallelic_max_5_missing.pruned.vcf.gz \
     --threads 8
 
 
@@ -54,14 +54,14 @@ bcftools view \
 #############################################
 
 bcftools view \
-    -r 29 Whole_genome_biallelic_max_5_missing.vcf.gz  \
-    -Oz  -o Z_biallelic_max_5_missing.vcf.gz --threads 8
+    -r 29  WholeGenome_biallelic_max80missing_pruned.fixed.vcf.gz \
+    -Oz  -o Z_biallelic_max_5_missing.pruned.vcf.gz --threads 8
 
 
 #############################################
 # 4. Index the resulting VCF files
 #############################################
 
-bcftools index Whole_genome_biallelic_max_5_missing.vcf.gz 
-bcftools index Autosome_biallelic_max_5_missing.vcf.gz
-bcftools index Z_biallelic_max_5_missing.vcf.gz
+bcftools index Whole_genome_biallelic_max_5_missing.pruned.vcf.gz
+bcftools index Autosome_biallelic_max_5_missing.pruned.vcf.gz
+bcftools index Z_biallelic_max_5_missing.pruned.vcf.gz
