@@ -4,9 +4,6 @@
 #SBATCH --mem=40G
 #SBATCH --cpus-per-task=8
 
-
-source /home/durandk/miniconda3/etc/profile.d/conda.sh
-
 source /home/durandk/miniconda3/etc/profile.d/conda.sh
 conda activate vcftools
 
@@ -27,16 +24,8 @@ zgrep -v '^##chrSet=' WholeGenome_biallelic_max80missing_pruned.vcf.gz \
           
 tabix -f -p vcf WholeGenome_biallelic_max80missing_pruned.fixed.vcf.gz
 
-
-#############################################
-# 1. Filter whole-genome VCF
-#    - Keep only biallelic variants
-#    - Keep variants with at least 95% present genotypes (F_MISSING < 0.05)
-#    --keep variants with a maximum of 5% missing data (F_MISSING < 0.05)
-#############################################
-
-conda activate bcftools
-
+conda deactivate
+source /home/durandk/miniconda3/etc/profile.d/conda.sh
 conda activate bcftools
 #############################################
 # 1. Filter whole-genome VCF
