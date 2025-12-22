@@ -57,11 +57,19 @@ bcftools view \
     -r 29  WholeGenome_biallelic_max80missing_pruned.fixed.vcf.gz \
     -Oz  -o Z_biallelic_max_5_missing.pruned.vcf.gz --threads 8
 
+#############################################
+# 4. Filter whole-genome  with outgroup VCF
+#############################################
+
+bcftools view  -i 'F_MISSING < 0.05'  /storage/simple/projects/faw_adaptation/Data_Backup/Merged_vcf/2025_GenFAW600/2025_GenFAW600/merged.snps.filtered.renamed_chr1-29.miss0.8.vcf.gz  \
+ -Oz  -o merged.snps.max_5_missing_pruned.Treemix.vcf.gz --threads 8              
+zcat merged.snps.max_5_missing_pruned.Treemix.vcf.gz | grep -v "#" | wc -l 
 
 #############################################
-# 4. Index the resulting VCF files
+# 5. Index the resulting VCF files
 #############################################
 
 bcftools index Whole_genome_biallelic_max_5_missing.pruned.vcf.gz
 bcftools index Autosome_biallelic_max_5_missing.pruned.vcf.gz
 bcftools index Z_biallelic_max_5_missing.pruned.vcf.gz
+bcftools index -f merged.snps.max_5_missing_pruned.Treemix.vcf.gz
