@@ -7,7 +7,6 @@
 source /home/durandk/miniconda3/etc/profile.d/conda.sh
 conda activate vcftools
 
-
 #############################################
 #Fix VCF header after PLINK pruning
 #
