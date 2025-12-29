@@ -61,8 +61,8 @@ bcftools view \
 #############################################
 
 bcftools view  -i 'F_MISSING < 0.05'  /storage/simple/projects/faw_adaptation/Data_Backup/Merged_vcf/2025_GenFAW600/2025_GenFAW600/merged.snps.filtered.renamed_chr1-29.miss0.8.vcf.gz  \
- -Oz  -o merged.snps.max_5_missing_pruned.Treemix.vcf.gz --threads 8              
-zcat merged.snps.max_5_missing_pruned.Treemix.vcf.gz | grep -v "#" | wc -l 
+ -Oz  -o merged.snps.max_5_missing.Treemix.vcf.gz --threads 8              
+zcat merged.snps.max_5_missing.Treemix.vcf.gz | grep -v "#" | wc -l 
 
 #############################################
 # 5. Index the resulting VCF files
