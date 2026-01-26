@@ -43,7 +43,7 @@ bcftools view   -i 'F_MISSING < 0.05'  WholeGenome_biallelic_max80missing_pruned
 #############################################
 
 bcftools view \
-    -r 1-28  WholeGenome_biallelic_max80missing_pruned.fixed.vcf.gz \
+    -r 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28  WholeGenome_biallelic_max80missing_pruned.fixed.vcf.gz \
     -Oz -o Autosome_biallelic_max_5_missing.pruned.vcf.gz \
     --threads 8
 
