@@ -8,18 +8,10 @@
 
 source /home/durandk/miniconda3/etc/profile.d/conda.sh
 conda activate bgzip_tabix
-#cp /home/durandk/scratch_durandk/GenFAW600/VCF/202512_newvcf/Whole_genome_biallelic_max_5_missing_pruned.vcf.gz*   .
-
-# zcat Whole_genome_biallelic_max_5_missing_pruned.vcf.gz\
-#   | sed 's/^##fileformat=VCFv4.3/##fileformat=VCFv4.2/' \
-#    |bgzip -c > Whole_genome_biallelic_max_5_missing_pruned_v4.2.vcf.gz
-
-
-# tabix -p vcf Whole_genome_biallelic_max_5_missing_pruned_v4.2.vcf.gz
-
+cp /storage/simple/projects/faw_adaptation/Data_Backup/Merged_vcf/2025_GenFAW600/2025_GenFAW600/VCF_notpruned/GenFAW_max5miss_biallelic.vcf.gz*   .
 # --- Input VCF ---
 
-VCF="Whole_genome_biallelic_max_5_missing_pruned_v4.2.vcf.gz"
+VCF="GenFAW_max5miss_biallelic.vcf.gz"
 # --- Population files ---
 POP=(
 "Inv_west.pop"
