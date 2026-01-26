@@ -65,3 +65,12 @@ plink --vcf "${PREFIX}_max5miss_biallelic.vcf.gz" \
 conda activate bgzip_tabix
 # Step 4  index the final VCF
 tabix -p vcf WholeGenome_biallelic_max5miss_pruned.vcf.gz
+
+
+
+
+
+
+
+
+
