@@ -27,58 +27,68 @@ PREFIX="GenFAW"
 # ----------------------------- Step 1: bcftools filtering -----------------------------
 source /home/durandk/miniconda3/etc/profile.d/conda.sh
 conda activate bcftools
-# # Create intermediate filtered VCF
-# bcftools view "$INPUT_VCF" \
-#     --threads 8 \
-#     --include 'F_MISSING <= 0.05' \
-#     --min-alleles 2 --max-alleles 2 \
-#     --output-type z \
-#     --output "${PREFIX}_max5miss_biallelic.vcf.gz"
+# Create filtered VCF
+ bcftools view "$INPUT_VCF" \
+     --threads 8 \
+     --include 'F_MISSING <= 0.05' \
+     --min-alleles 2 --max-alleles 2 \
+     --output-type z \
+     --output "${PREFIX}_max5miss_biallelic.vcf.gz"
 
-# # Index the intermediate VCF (required for some tools and good practice)
-
-
-# conda deactivate
-# source /home/durandk/miniconda3/etc/profile.d/conda.sh
-# conda activate bgzip_tabix
-
-# tabix -p vcf "${PREFIX}_max5miss_biallelic.vcf.gz"
-# ----------------------------- Step 2: PLINK LD Pruning -----------------------------
-conda activate plink1.9
-
-plink --vcf "${PREFIX}_max5miss_biallelic.vcf.gz" \
-      --allow-extra-chr \
-          --chr-set 29\
-      --double-id \
-      --indep-pairwise 50 10 0.2 \
-      --out ${PREFIX}_prune
-
-# Step 3: Extracting pruned variants and exporting to compressed VCF
-plink --vcf "${PREFIX}_max5miss_biallelic.vcf.gz" \
-      --allow-extra-chr \
-            --double-id \
-             --chr-set 29\
-      --extract "${PREFIX}_prune.prune.in" \
-      --recode vcf bgz \
-      --out WholeGenome_biallelic_max5miss_pruned.vcf.gz
+ conda deactivate
+ source /home/durandk/miniconda3/etc/profile.d/conda.sh
+ conda activate bgzip_tabix
+ tabix -p vcf "${PREFIX}_max5miss_biallelic.vcf.gz"
+#------------------------------annotate duplicated SNP
+ conda deactivate
+ source /home/durandk/miniconda3/etc/profile.d/conda.sh
+conda activate bcftools
+bcftools annotate \
+  --set-id '%CHROM:%POS:%REF:%ALT' \
+  -Oz \
+  -o GenFAW_max5miss_biallelic_ID.vcf.gz \
+  GenFAW_max5miss_biallelic.vcf.gz
 
 conda activate bgzip_tabix
-# Step 4  index the final VCF
-tabix -p vcf WholeGenome_biallelic_max5miss_pruned.vcf.gz
+tabix -p vcf GenFAW_max5miss_biallelic_ID.vcf.gz
 
 
-conda deactivate
-source /home/durandk/miniconda3/etc/profile.d/conda.sh
+# ----------------------------- Step 2: PLINK LD Pruning -----------------------------
+ 
+ conda activate plink1.9
+
+plink --vcf "${PREFIX}_max5miss_biallelic_ID.vcf.gz" \
+      --allow-extra-chr \
+      --chr-set 29 \
+      --double-id \
+      --indep-pairwise 50 10 0.2 \
+      --out "${PREFIX}_prune"
+
+# Extracting pruned variants and exporting to compressed VCF
+plink --vcf "${PREFIX}_max5miss_biallelic_ID.vcf.gz" \
+      --allow-extra-chr \
+      --double-id \
+      --chr-set 29 \
+      --extract "${PREFIX}_prune.prune.in" \
+      --recode vcf bgz \
+      --out "${PREFIX}_max5miss_pruned"
+
+
 conda activate bcftools
-                 
+bcftools view -H "${PREFIX}_max5miss_pruned.vcf.gz" | wc -l
+bcftools view -H "${PREFIX}_max5miss_biallelic.vcf.gz" | wc -l
 
+ conda activate bgzip_tabix
+#  index the final VCF
+tabix -f -p vcf "${PREFIX}_max5miss_pruned.vcf.gz"
 
+            
 #############################################
 # 1. Extract autosomes (chromosomes 1 to 28)
 #############################################
 
 bcftools view \
-    -r 1-28  WholeGenome_biallelic_max5miss_pruned.vcf.gz \
+    -r 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28   WholeGenome_biallelic_max5miss_pruned.vcf.gz \
     -Oz -o Autosome_biallelic__max5miss_pruned.vcf.gz \
     --threads 8
 
