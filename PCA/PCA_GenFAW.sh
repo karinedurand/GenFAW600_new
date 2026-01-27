@@ -14,11 +14,11 @@ conda activate plink2
 # PCA #--geno 0.05: eliminates SNPs with more than 5% missing, retaining those with at least 95% of data present.
 
 # ==============================
-# plink2 --vcf  /storage/simple/users/durandk/scratch_durandk/GenFAW600/VCF/202512_newvcf/Whole_genome_biallelic_max_5_missing_pruned.vcf.gz  \
-# 	  --chr-set 29 \
-# 	  --allow-extra-chr \
-# 	  --pca \
-# 	  --out Whole_genome_biallelic_max_5_missing_pruned_PCA
+plink2 --vcf  /home/durandk/scratch_durandk/GenFAW600/VCF/202512_newvcf/GenFAW_max5miss_pruned.vcf.gz \
+	  --chr-set 29 \
+	  --allow-extra-chr \
+	  --pca \
+	  --out GenFAW_max5miss_pruned_PCA
 
 
 
@@ -26,18 +26,18 @@ conda activate plink2
 # PCA autosomes
 # #############################################
 
-# plink2 --vcf /home/durandk/scratch_durandk/GenFAW600/VCF/202512_newvcf/Autosome_biallelic_max_5_missing_pruned.vcf.gz  \
-# 	  --chr-set 29 \
-# 	  --allow-extra-chr \
-# 	  --pca \
-# 	  --out Autosome_biallelic_max_5_missing_pruned_PCA
+plink2 --vcf  /storage/simple/projects/faw_adaptation/Data_Backup/Merged_vcf/2025_GenFAW600/2025_GenFAW600/VCF_pruned_for_PCA_Admixture/Autosome_biallelic_max5miss_pruned.vcf.gz \
+	  --chr-set 29 \
+	  --allow-extra-chr \
+	  --pca \
+	  --out Autosome_biallelic_max5miss_pruned_PCA
 	 
 #############################################
 # PCA Z chromosome
 # #############################################
 
-plink2 --vcf /home/durandk/scratch_durandk/GenFAW600/VCF/202512_newvcf/Z_biallelic_max_5_missing_pruned.vcf.gz \
-	  --chr-set 29 \
+plink2 --vcf  /storage/simple/projects/faw_adaptation/Data_Backup/Merged_vcf/2025_GenFAW600/2025_GenFAW600/VCF_pruned_for_PCA_Admixture/Z_biallelic_max5miss_pruned.vcf.gz \
 	  --allow-extra-chr \
+	  --chr-set 29 \
 	  --pca \
-	  --out Z_biallelic_max_5_missing_pruned_PCA
+	  --out Z_biallelic_max5miss_pruned_PCA
