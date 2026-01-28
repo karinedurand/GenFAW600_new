@@ -8,11 +8,7 @@
 # 1. Get VCF file from vcf.gz
 #############################################
 
-
-cp /storage/simple/projects/faw_adaptation/Data_Backup/Merged_vcf/2025_GenFAW600/2025_GenFAW600/VCF_pruned_for_PCA_Admixture/GenFAW_max5miss_pruned.vcf.gz  .
-gunzip GenFAW_max5miss_pruned.vcf.gz  
-
-
+# gunzip  WholeGenome_biallelic_max5missing_pruned.vcf.gz
 #############################################
 # 2. Convert PED to GENO for sNMF
 #############################################
