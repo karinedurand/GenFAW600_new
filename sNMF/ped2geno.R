@@ -33,15 +33,15 @@ proj_alpha100 <- snmf(vcf_file,
 # ======================================================================
 # Save the sNMF project
 # ======================================================================
-save(proj_alpha100, file = "WholeGenome_biallelic_max80missing_pruned.RData")
+save(proj_alpha100, file = "WholeGenome_biallelic_max5missing_pruned.RData")
 
 # ======================================================================
 # Plot cross-entropy results for alpha = 100
 # ======================================================================
 
 # Load the sNMF project (use the same name as above)
-#project_alpha10 <- load.snmfProject("WholeGenome_biallelic_max80missing_pruned.snmfProject")
-project_alpha100 <- load.snmfProject("WholeGenome_biallelic_max80missing_pruned.snmfProject")
+
+project_alpha100 <- load.snmfProject("WholeGenome_biallelic_max5missing_pruned.snmfProject")
 
 # Define the range of K values
 Ks <- 2:8
